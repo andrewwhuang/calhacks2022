@@ -40,7 +40,9 @@ class App extends Component {
           changeCurrency={this.editCurrency}
         />
         <div className="mainContainer">
-          <Map data={this.state} action={this.mapInfoSetter} />
+          <div className="mapContainer">
+            <Map data={this.state} action={this.mapInfoSetter} />
+          </div>
           <SearchBox data={this.state} />
         </div>
       </div>
