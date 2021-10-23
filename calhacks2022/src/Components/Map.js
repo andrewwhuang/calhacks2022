@@ -18,12 +18,10 @@ function Map(props) {
     setMarker((marker) => (marker = { coords }));
     props.data.destLat = coords.lat;
     props.data.destLng = coords.lng;
-    console.log(coords);
   };
 
   return (
     <section id="map">
-      "sample test for map" + {props.data.destLat} +{props.data.destLng};
       <LoadScript googleMapsApiKey="AIzaSyCLdIa6-k1T6ezYBWLxa6o1NfukLxggROE">
         <GoogleMap
           mapContainerStyle={containerStyle}
