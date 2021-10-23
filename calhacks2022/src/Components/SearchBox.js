@@ -6,8 +6,9 @@ import {
     getFlights,
     getHotels,
 } from "../helpers/hotelsAndFlightsApi";
+import ReactStars from "react-rating-stars-component";
 
-const MAX_NUM_HOTEL_RESULTS = 3;
+const MAX_NUM_HOTEL_RESULTS = 5;
 const MAX_NUM_FLIGHT_RESULTS = 3;
 
 /**
@@ -47,6 +48,8 @@ const SearchBox = ({ data }) => {
                                     stars: hotel.starRating,
                                     address: hotel.address,
                                     price: hotel.ratePlan.price.exactCurrent,
+                                    imgLink:
+                                        hotel.optimizedThumbUrls.srpDesktop,
                                 };
                             })
                             .filter((_, i) => i < MAX_NUM_HOTEL_RESULTS);
@@ -136,7 +139,7 @@ const SearchBox = ({ data }) => {
             <div className="title">FLIGHTS</div>
             {flights.map((flight) => (
                 <div className="result">
-                    <div>{flight.minPrice}</div>
+                    <div>${flight.minPrice}</div>
                     <div>{flight.direct ? "DIRECT" : "INDIRECT"}</div>
                     <div>{flight.carrier}</div>
                 </div>
@@ -144,9 +147,32 @@ const SearchBox = ({ data }) => {
             <div className="title">HOTELS</div>
             {hotels.map((hotel) => (
                 <div className="result">
-                    <div>{hotel.name}</div>
-                    <div>{hotel.stars}</div>
-                    <div>{hotel.price}</div>
+                    <table className="result-table">
+                        <colgroup>
+                            <col />
+                            <col />
+                        </colgroup>
+                        <tr>
+                            <th className="result-table-text">
+                                <div>{hotel.name}</div>
+                                <div>${hotel.price}</div>
+                                <ReactStars
+                                    count={5}
+                                    value={hotel.stars}
+                                    edit={false}
+                                    onChange={() => {
+                                        //noop
+                                    }}
+                                    size={24}
+                                    activeColor="#ffd700"
+                                />
+                                {/* <div>{hotel.stars}</div> */}
+                            </th>
+                            <th className="result-table-image">
+                                <img src={hotel.imgLink} alt="hotel" />
+                            </th>
+                        </tr>
+                    </table>
                 </div>
             ))}
         </section>
