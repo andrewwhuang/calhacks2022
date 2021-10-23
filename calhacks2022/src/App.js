@@ -12,10 +12,10 @@ class App extends Component {
     super(props);
     this.state = {
       // Add preference states here
-      // Berkeley is default state
-      destCity: "Berkeley",
-      destState: "California",
-      destCountry: "United States",
+      // Default values that are set when a marker is dropped
+      destCity: "",
+      destState: "",
+      destCountry: "",
       lat: 37.871666, //will be got from the location api
       lng: -122.272781,
       destLat: 0, //just default values that are set when a marker is dropped
