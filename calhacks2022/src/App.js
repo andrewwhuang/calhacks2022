@@ -13,6 +13,8 @@ class App extends Component {
       city: "Berkeley",
       lat: 37.871666,
       lng: -122.272781,
+      destLat: 37.871666,
+      destLng: -122.272781,
     };
   }
 

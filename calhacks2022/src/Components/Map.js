@@ -1,44 +1,39 @@
-import React, { Component } from "react";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
+import React, { useState } from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 function Map(props) {
-  function getNearestCity() {
-    return "apples";
-  }
-
-  const libraries = ["places"];
-
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCLdIa6-k1T6ezYBWLxa6o1NfukLxggROE",
-    libraries: libraries,
-  });
-
-  if (loadError) return "Error Loading Map";
-  if (!isLoaded) return "Loading Maps";
-
-  const mapContainerStyle = {
+  const containerStyle = {
     width: "500px",
     height: "500px",
   };
 
-  if (props.data) {
-    var center = { lat: props.data.lat, lng: props.data.lng };
-  }
+  const center = {
+    lat: props.data.lat,
+    lng: props.data.lng,
+  };
+
+  const [marker, setMarker] = useState({});
+
+  const addMarker = (coords) => {
+    setMarker((marker) => (marker = { coords }));
+    props.data.destLat = coords.lat;
+    props.data.destLng = coords.lng;
+    console.log(coords);
+  };
 
   return (
     <section id="map">
-      {" "}
-      "sample test for map" + {getNearestCity()}
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={8}
-        center={center}
-      ></GoogleMap>
+      "sample test for map" + {props.data.destLat} +{props.data.destLng};
+      <LoadScript googleMapsApiKey="AIzaSyCLdIa6-k1T6ezYBWLxa6o1NfukLxggROE">
+        <GoogleMap
+          mapContainerStyle={containerStyle}
+          center={center}
+          zoom={9}
+          onClick={(e) => addMarker(e.latLng.toJSON())}
+        >
+          <Marker position={marker.coords} />
+        </GoogleMap>
+      </LoadScript>
     </section>
   );
 }
