@@ -16,8 +16,9 @@ function Map(props) {
 
   const addMarker = (coords) => {
     setMarker((marker) => (marker = { coords }));
-    props.data.destLat = coords.lat;
-    props.data.destLng = coords.lng;
+    // props.data.destLat = coords.lat;
+    // props.data.destLng = coords.lng;
+    props.action(coords.lat, coords.lng);
   };
 
   return (
