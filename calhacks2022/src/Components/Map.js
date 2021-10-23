@@ -7,8 +7,8 @@ function Map(props) {
     Geocode.setLocationType("APPROXIMATE");
 
     const containerStyle = {
-        width: "500px",
-        height: "500px",
+        width: "63vw",
+        height: "85vh",
     };
 
     const center = {
