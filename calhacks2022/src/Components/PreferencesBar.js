@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Input, Menu, Form } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker';
-import ToggleButton from '@mui/material/ToggleButton';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class PreferencesBar extends Component {
@@ -12,6 +12,10 @@ export default class PreferencesBar extends Component {
 
   render() {
     const { } = this.state
+
+    const handleChange = () => {
+        this.props.changeCurrency();
+    }
     
     return (
         <Menu secondary>
@@ -68,11 +72,21 @@ export default class PreferencesBar extends Component {
                 </Form.Field>
             </Menu.Item>
             <Menu.Item>
-                
+                <ToggleButtonGroup
+                    color="primary"
+                    exclusive
+                    onChange={handleChange}
+                    className="Btn-BG"
+                >
+                    <ToggleButton value="CAD">Canadian Dollar</ToggleButton>
+                    <ToggleButton value="USD">US Dollar</ToggleButton>
+                </ToggleButtonGroup>
             </Menu.Item>
 
             </Menu.Menu>
         </Menu>
     )
   }
+
+  
 }

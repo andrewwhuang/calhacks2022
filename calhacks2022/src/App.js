@@ -38,6 +38,7 @@ class App extends Component {
                     data={this.state}
                     startDate={this.editStart}
                     endDate={this.editEnd}
+                    changeCurrency={this.editCurrency}
                 />
                 <div className="mainContainer">
                     <Map data={this.state} action={this.mapInfoSetter} />
@@ -69,9 +70,10 @@ class App extends Component {
         });
     };
 
-    editCurrency = (currency) => {
+    editCurrency = (value) => {
+        const newCurr = (this.state.currency === "USD") ? "CAD ": "USD";
         this.setState({
-            currency: currency,
+            currency: newCurr,
         });
     };
 }
