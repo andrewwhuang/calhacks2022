@@ -8,96 +8,99 @@ import SearchBox from "./Components/SearchBox";
 import background from "./web-background.png";
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      // Add preference states here
+      // Default values that are set when a marker is dropped
+      destCity: "",
+      destState: "",
+      destCountry: "",
+      lat: 37.871666, //will be got from the location api
+      lng: -122.272781,
+      destLat: 0, //just default values that are set when a marker is dropped
+      destLng: 0,
+      startDate: new Date().toISOString().slice(0, 10),
+      endDate: null,
+    };
+  }
 
-    constructor(props) {
-  
-      super(props);
-        this.state = {
-          // Add preference states here
-          // Berkeley is default state
-          city: "Berkeley",
-          lat: 37.871666, //will be got from the location api
-          lng: -122.272781,
-          destLat: 0, //just default values that are set when a marker is dropped
-          destLng: 0,
-          startDate: new Date().toISOString().slice(0, 10),
-          endDate: null,
-        };
-      }
+  // For data ={}, add any states needed
+  render() {
+    return (
+      <div
+        className="App"
+        style={{
+          backgroundImage: `url(${background})`,
+        }}
+      >
+        <PreferencesBar
+          data={this.state}
+          startDate={this.editStart}
+          endDate={this.editEnd}
+        />
+        <Map data={this.state} action={this.latLongSetter} />
+        <SearchBox data={this.state} />
 
-      // For data ={}, add any states needed
-      render() {
-        return (
-          <div
-            className="App"
-            style={{
-              backgroundImage: `url(${background})`,
-            }}
-          >
-            <PreferencesBar data={this.state} startDate={this.editStart} endDate={this.editEnd}/>
-            <Map data={this.state} action={this.latLongSetter} />
-            <SearchBox data={this.state} />
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+      </div>
+    );
+  }
 
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-          </div>
-        );
-    }
+  latLongSetter = (lat, long) => {
+    this.setState({
+      destLat: lat,
+      destLng: long,
+    });
+  };
 
-    latLongSetter = (lat, long) => {
-      this.setState({
-        destLat: lat,
-        destLng: long,
-      });
-    }
+  editStart = (date) => {
+    this.setState({
+      startDate: date,
+    });
+  };
 
-    editStart = (date) => {
-      this.setState({
-        startDate: date,
-      });
-    }
-
-    editEnd = (date) => {
-      this.setState({
-        endDate: date,
-      });
-    }
-
+  editEnd = (date) => {
+    this.setState({
+      endDate: date,
+    });
+  };
 }
 
 export default App;
