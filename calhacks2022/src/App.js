@@ -33,9 +33,6 @@ class App extends Component {
         return (
             <div
                 className="App"
-                style={{
-                    backgroundImage: `url(${background})`,
-                }}
             >
                 <PreferencesBar
                     data={this.state}
