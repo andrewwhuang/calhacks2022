@@ -9,7 +9,7 @@
     height: 90px;
     top: 0px;
 
-    background: #3F3D56;
+    background: linear-gradient(#3F3D56, #c2ecff);
     background-size: cover;
     margin-left: 0;
 
@@ -17,5 +17,25 @@
 
 .Btn-BG {
     background-color: white !important;
+}
+
+.datePicker-form {
+    background-color: blue !important;
+}
+
+.labelName {
+    color: white;
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    font-size: 120%;
+}
+
+.labelNameTitle {
+    color: white;
+    text-transform: lowercase;
+    letter-spacing: 5px;
+    font-weight: bold;
+    font-size: 200%;
+    text-indent: 30px;
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
 }
 
