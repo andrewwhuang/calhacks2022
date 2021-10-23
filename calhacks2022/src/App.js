@@ -11,7 +11,9 @@ class App extends Component {
         this.state = {
             // Add preference states here
             // Berkeley is default state
-            city: 'Berkeley'
+            city: 'Berkeley',
+            lat: 37.871666,
+            lng: -122.272781
         };
     }
 
