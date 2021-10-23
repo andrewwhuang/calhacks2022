@@ -39,8 +39,10 @@ class App extends Component {
                 }}
             >
                 <PreferencesBar data={this.state} />
-                <Map data={this.state} />
-                <SearchBox data={this.state} />
+                <div className="mainContainer">
+                    <Map data={this.state} />
+                    <SearchBox data={this.state} />
+                </div>
 
                 <br></br>
                 <br></br>

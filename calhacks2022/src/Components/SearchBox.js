@@ -1,3 +1,4 @@
+import "../SearchBox.css";
 import { useState, useEffect, useCallback } from "react";
 import {
     getAirports,
@@ -119,18 +120,17 @@ const SearchBox = ({ data }) => {
     ]);
 
     return (
-        <section id="searchBox">
-            {/* <div>Flights: {JSON.stringify(flights)}</div>
-            <div>Hotels: {JSON.stringify(hotels)}</div> */}
+        <section id="searchBox" className="searchBox">
+            <div className="title">FLIGHTS</div>
             {flights.map((flight) => (
-                <div>
-                    FLIGHT
+                <div className="result">
                     <div>{flight.minPrice}</div>
                     <div>{flight.direct ? "DIRECT" : "INDIRECT"}</div>
                 </div>
             ))}
+            <div className="title">HOTELS</div>
             {hotels.map((hotel) => (
-                <div>
+                <div className="result">
                     <div>{hotel.name}</div>
                     <div>{hotel.stars}</div>
                     <div>{hotel.price}</div>
