@@ -1,15 +1,20 @@
 import React, { Component } from 'react'
 import { Input, Menu, Form } from 'semantic-ui-react'
-
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 export default class PreferencesBar extends Component {
-  state = { activeItem: 'home' }
+  state = { 
+      activeItem: 'home',
+      startDate: '',
+      endDate: '',
+    }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
     const { activeItem } = this.state
-
+    
     return (
         <Menu secondary>
 
@@ -23,17 +28,43 @@ export default class PreferencesBar extends Component {
 
             <Menu.Menu position='right'>
                 <Menu.Item>
-                    <Form.Field>
-                        <label>Start date </label>
-                        <Input placeholder='Start date' />
-                    </Form.Field>
+                    <label>Start date </label>
+                    <form onSubmit={ this.onFormSubmit }>
+                        <div className="form-group">
+                        <DatePicker
+                            selected={ this.state.startDate }
+                            onChange={(startVal) => {
+                                this.props.startDate(startVal)
+                                this.setState({
+                                    startDate: startVal,
+                                  });
+                            }}
+                            name="startDate"
+                            dateFormat="yyyy-MM-dd"
+                        />
+                        </div>
+                    </form>
                 </Menu.Item>
             
             <Menu.Item>
-                <Form.Field>
+            <Menu.Item>
                     <label>End date </label>
-                    <Input placeholder='End date' />
-                </Form.Field>
+                    <form onSubmit={ this.onFormSubmit }>
+                        <div className="form-group">
+                        <DatePicker
+                            selected={ this.state.endDate }
+                            onChange={(endVal) => {
+                                this.props.endDate(endVal)
+                                this.setState({
+                                    endDate: endVal,
+                                  });
+                            }}
+                            name="endDate"
+                            dateFormat="yyyy-MM-dd"
+                        />
+                        </div>
+                    </form>
+                </Menu.Item>
             </Menu.Item>
 
             <Menu.Item>
@@ -42,14 +73,6 @@ export default class PreferencesBar extends Component {
                     <Input placeholder='Start location' />
                 </Form.Field>
             </Menu.Item>
-            
-            {/* <Menu.Item>
-                <Form.Input fluid label='End date' placeholder='End date' />
-            </Menu.Item> */}
-            
-            {/* <Menu.Item>
-                <Input icon='search' placeholder='Start Location' />
-            </Menu.Item> */}
 
             </Menu.Menu>
         </Menu>

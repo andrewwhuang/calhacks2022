@@ -20,6 +20,8 @@ class App extends Component {
           lng: -122.272781,
           destLat: 0, //just default values that are set when a marker is dropped
           destLng: 0,
+          startDate: new Date().toISOString().slice(0, 10),
+          endDate: null,
         };
       }
 
@@ -32,7 +34,7 @@ class App extends Component {
               backgroundImage: `url(${background})`,
             }}
           >
-            <PreferencesBar data={this.state} />
+            <PreferencesBar data={this.state} startDate={this.editStart} endDate={this.editEnd}/>
             <Map data={this.state} action={this.latLongSetter} />
             <SearchBox data={this.state} />
 
@@ -83,7 +85,19 @@ class App extends Component {
         destLng: long,
       });
     }
-    
+
+    editStart = (date) => {
+      this.setState({
+        startDate: date,
+      });
+    }
+
+    editEnd = (date) => {
+      this.setState({
+        endDate: date,
+      });
+    }
+
 }
 
 export default App;
