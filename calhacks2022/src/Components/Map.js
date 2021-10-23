@@ -61,7 +61,7 @@ function Map(props) {
                 if (!country) {
                     country = "US";
                 }
-                this.props.action(coords.lat, coords.lng, city, state, country);
+                props.action(coords.lat, coords.lng, city, state, country);
             },
             (error) => {
                 console.error("Please try again");
