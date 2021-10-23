@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
 
 class Map extends Component {
   getNearestCity() {
@@ -6,33 +12,34 @@ class Map extends Component {
   }
 
   render() {
+    const libraries = ["places"];
+
+    const { isLoaded, loadError } = useLoadScript({
+      googleMapsApiKey: "AIzaSyCLdIa6-k1T6ezYBWLxa6o1NfukLxggROE",
+      libraries: libraries,
+    });
+
+    if (loadError) return "Error Loading Map";
+    if (!isLoaded) return "Loading Maps";
+
+    const mapContainerStyle = {
+      width: "500px",
+      height: "500px",
+    };
+
     if (this.props.data) {
-      var lat = this.props.data.lat;
-      var lng = this.props.data.lng;
+      var center = { lat: this.props.data.lat, lng: this.props.data.lng };
     }
 
     return (
       <section id="map">
         {" "}
         "sample test for map" + {this.getNearestCity()}
-        <div className="google-map-code">
-          <iframe
-            src={
-              "https://www.google.com/maps/embed/v1/view?key=AIzaSyCLdIa6-k1T6ezYBWLxa6o1NfukLxggROE&center=" +
-              lat +
-              "," +
-              lng +
-              "&zoom=9"
-            }
-            width="600"
-            height="450"
-            frameborder="0"
-            style={{ border: 0 }}
-            allowfullscreen=""
-            aria-hidden="false"
-            tabindex="0"
-          ></iframe>
-        </div>
+        <GoogleMap
+          mapContainerStyle={mapContainerStyle}
+          zoom={8}
+          center={center}
+        ></GoogleMap>
       </section>
     );
   }
