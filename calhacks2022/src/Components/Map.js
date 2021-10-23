@@ -54,13 +54,15 @@ function Map(props) {
         }
         //temporary error handling
         if (!city) {
-          console.error("Select a City");
+            city = "Seattle";
         }
-        props.data.city = city;
-        props.data.state = state;
-        props.data.country = country;
-        // remove later
-        console.log(city, state, country);
+        if (!state) {
+            state = "WA";
+        }
+        if (!country) {
+            country = "US"
+        }
+        this.props.action(coords.lat, coords.lng, city, state, country);
       },
       (error) => {
         console.error("Please try again");

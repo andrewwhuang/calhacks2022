@@ -39,7 +39,7 @@ class App extends Component {
           startDate={this.editStart}
           endDate={this.editEnd}
         />
-        <Map data={this.state} action={this.latLongSetter} />
+        <Map data={this.state} action={this.mapInfoSetter} />
         <SearchBox data={this.state} />
 
         <br></br>
@@ -83,10 +83,13 @@ class App extends Component {
     );
   }
 
-  latLongSetter = (lat, long) => {
+  mapInfoSetter = (lat, long, city, state, country) => {
     this.setState({
       destLat: lat,
       destLng: long,
+      destCity: city,
+      destState: state,
+      destCountry: country,
     });
   };
 
