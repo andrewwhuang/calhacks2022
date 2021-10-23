@@ -13,9 +13,9 @@ class App extends Component {
         this.state = {
             // Add preference states here
             // Default values that are set when a marker is dropped
-            destCity: "",
+            destCity: "Tokyo",
             destState: "",
-            destCountry: "",
+            destCountry: "JP",
             lat: 37.871666, //will be got from the location api
             lng: -122.272781,
             destLat: 0, //just default values that are set when a marker is dropped
