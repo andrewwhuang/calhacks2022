@@ -12,17 +12,16 @@ class App extends Component {
     super(props);
     this.state = {
       // Add preference states here
-      // All locations are default and will change based on map marker
-      // City one sometimes returns undefined if city is too far
-      // Eventally probably need error handling to tell the user to select a proper city
-      city: "Berkeley",
-      state: "California",
-      country: "United States",
+      // Berkeley is default state
+      destCity: "Berkeley",
+      destState: "California",
+      destCountry: "United States",
       lat: 37.871666, //will be got from the location api
       lng: -122.272781,
       destLat: 0, //just default values that are set when a marker is dropped
       destLng: 0,
-      destCity: "",
+      startDate: new Date().toISOString().slice(0, 10),
+      endDate: null,
     };
   }
 
@@ -35,8 +34,12 @@ class App extends Component {
           backgroundImage: `url(${background})`,
         }}
       >
-        <PreferencesBar data={this.state} />
-        <Map data={this.state} />
+        <PreferencesBar
+          data={this.state}
+          startDate={this.editStart}
+          endDate={this.editEnd}
+        />
+        <Map data={this.state} action={this.latLongSetter} />
         <SearchBox data={this.state} />
 
         <br></br>
@@ -79,6 +82,25 @@ class App extends Component {
       </div>
     );
   }
+
+  latLongSetter = (lat, long) => {
+    this.setState({
+      destLat: lat,
+      destLng: long,
+    });
+  };
+
+  editStart = (date) => {
+    this.setState({
+      startDate: date,
+    });
+  };
+
+  editEnd = (date) => {
+    this.setState({
+      endDate: date,
+    });
+  };
 }
 
 export default App;
