@@ -23,33 +23,31 @@ export default class PreferencesBar extends Component {
             {/* <Image src="static/img/frontpage-logo.jpg" class="center-logo"> */}
 
             <Menu.Item>
-                <h1 style={{color: "white"}}>Name of Website</h1>
+                <label className="labelNameTitle"> Click 2 Trip </label>
             </Menu.Item>
 
             <Menu.Menu position='right'>
                 <Menu.Item>
-                    <label>Start date </label>
+                    <label className="labelName">Start date </label>
                     <form onSubmit={ this.onFormSubmit }>
-                        <div className="form-group">
                         <DatePicker
                             selected={ this.state.startDate }
                             onChange={(startVal) => {
                                 this.props.startDate(startVal)
                                 this.setState({
                                     startDate: startVal,
-                                  });
+                                });
                             }}
                             name="startDate"
                             dateFormat="yyyy-MM-dd"
+                            wrapperClassName="datePicker-form"
                         />
-                        </div>
                     </form>
                 </Menu.Item>
             <Menu.Item>
             <Menu.Item>
-                    <label>End date </label>
+                    <label className="labelName">End date </label>
                     <form onSubmit={ this.onFormSubmit }>
-                        <div className="form-group">
                         <DatePicker
                             selected={ this.state.endDate }
                             onChange={(endVal) => {
@@ -60,14 +58,14 @@ export default class PreferencesBar extends Component {
                             }}
                             name="endDate"
                             dateFormat="yyyy-MM-dd"
+                            wrapperClassName="datePicker-form"
                         />
-                        </div>
                     </form>
                 </Menu.Item>
             </Menu.Item>
             <Menu.Item>
                 <Form.Field>
-                    <label>Start location </label>
+                    <label className="labelName">Start location </label>
                     <Input placeholder='Start location' />
                 </Form.Field>
             </Menu.Item>
