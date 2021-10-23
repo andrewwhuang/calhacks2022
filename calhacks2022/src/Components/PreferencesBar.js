@@ -22,9 +22,9 @@ export default class PreferencesBar extends Component {
 
             {/* <Image src="static/img/frontpage-logo.jpg" class="center-logo"> */}
 
-            <Menu.Item
-                name='Name of Website'
-            />
+            <Menu.Item>
+                <h1 style={{color: "white"}}>Name of Website</h1>
+            </Menu.Item>
 
             <Menu.Menu position='right'>
                 <Menu.Item>
