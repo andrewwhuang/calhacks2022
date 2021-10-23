@@ -7,21 +7,18 @@ function Map(props) {
     Geocode.setLocationType("APPROXIMATE");
 
     const containerStyle = {
-        width: "500px",
-        height: "500px",
-    };
-
-    const center = {
-        lat: props.data.lat,
-        lng: props.data.lng,
+        width: "63vw",
+        height: "85vh",
     };
 
     const [marker, setMarker] = useState({});
+    const [center, setCenter] = useState({ lat: 37.871666, lng: -122.272781 });
 
     const addMarker = (coords) => {
         setMarker((marker) => (marker = { coords }));
         props.data.destLat = coords.lat;
         props.data.destLng = coords.lng;
+        setCenter(coords);
         // remove later
         console.log(coords);
         Geocode.fromLatLng(coords.lat, coords.lng).then(
