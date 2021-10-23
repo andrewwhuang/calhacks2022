@@ -21,9 +21,9 @@ export default class PreferencesBar extends Component {
             {/* <Image src="static/img/frontpage-logo.jpg" class="center-logo"> */}
 
             <Menu.Item
-            name='Name of Website'
-            active={activeItem === 'Name of Website'}
-            onClick={this.handleItemClick}
+                name='Name of Website'
+                active={activeItem === 'Name of Website'}
+                onClick={this.handleItemClick}
             />
 
             <Menu.Menu position='right'>
