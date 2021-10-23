@@ -73,7 +73,7 @@ function Map(props) {
       <LoadScript googleMapsApiKey="AIzaSyCLdIa6-k1T6ezYBWLxa6o1NfukLxggROE">
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={center}
+          defaultCenter={center}
           zoom={9}
           onClick={(e) => addMarker(e.latLng.toJSON())}
         >
