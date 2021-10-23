@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Input, Menu, Form } from 'semantic-ui-react'
 import DatePicker from 'react-datepicker';
+import ToggleButton from '@mui/material/ToggleButton';
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class PreferencesBar extends Component {
@@ -8,7 +9,6 @@ export default class PreferencesBar extends Component {
       startDate: '',
       endDate: '',
     }
-
 
   render() {
     const { } = this.state
@@ -41,7 +41,6 @@ export default class PreferencesBar extends Component {
                         </div>
                     </form>
                 </Menu.Item>
-            
             <Menu.Item>
             <Menu.Item>
                     <label>End date </label>
@@ -62,12 +61,14 @@ export default class PreferencesBar extends Component {
                     </form>
                 </Menu.Item>
             </Menu.Item>
-
             <Menu.Item>
                 <Form.Field>
                     <label>Start location </label>
                     <Input placeholder='Start location' />
                 </Form.Field>
+            </Menu.Item>
+            <Menu.Item>
+                
             </Menu.Item>
 
             </Menu.Menu>
