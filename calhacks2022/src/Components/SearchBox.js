@@ -120,8 +120,22 @@ const SearchBox = ({ data }) => {
 
     return (
         <section id="searchBox">
-            <div>Flights: {JSON.stringify(flights)}</div>
-            <div>Hotels: {JSON.stringify(hotels)}</div>
+            {/* <div>Flights: {JSON.stringify(flights)}</div>
+            <div>Hotels: {JSON.stringify(hotels)}</div> */}
+            {flights.map((flight) => (
+                <div>
+                    FLIGHT
+                    <div>{flight.minPrice}</div>
+                    <div>{flight.direct ? "DIRECT" : "INDIRECT"}</div>
+                </div>
+            ))}
+            {hotels.map((hotel) => (
+                <div>
+                    <div>{hotel.name}</div>
+                    <div>{hotel.stars}</div>
+                    <div>{hotel.price}</div>
+                </div>
+            ))}
         </section>
     );
 };
