@@ -22,7 +22,7 @@ class App extends Component {
             destLng: 0,
             startDate: new Date().toISOString().slice(0, 10),
             endDate: null,
-
+            currency: "CAD",
             originCity: "Vancouver",
             originCountry: "CA",
         };
@@ -66,6 +66,12 @@ class App extends Component {
     editEnd = (date) => {
         this.setState({
             endDate: date,
+        });
+    };
+
+    editCurrency = (currency) => {
+        this.setState({
+            currency: currency,
         });
     };
 }

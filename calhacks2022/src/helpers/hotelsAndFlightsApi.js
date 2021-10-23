@@ -5,11 +5,11 @@ import axios from "axios";
  * @param {string} city
  * @returns {Promise<object>} Promise resolving to response object
  */
-export const getAreas = (city) => {
+export const getAreas = (city, curr) => {
     var options = {
         method: "GET",
         url: "https://hotels-com-provider.p.rapidapi.com/v1/destinations/search",
-        params: { query: city, currency: "USD", locale: "en_US" },
+        params: { query: city, currency: curr, locale: "en_US" },
         headers: {
             "x-rapidapi-host": "hotels-com-provider.p.rapidapi.com",
             "x-rapidapi-key":
@@ -26,7 +26,7 @@ export const getAreas = (city) => {
  * @param {number} numAdults
  * @returns {Promise<object>} Promise resolving to response object
  */
-export const getHotels = (destinationId, numAdults) => {
+export const getHotels = (destinationId, numAdults, curr) => {
     var options = {
         method: "GET",
         url: "https://hotels-com-provider.p.rapidapi.com/v1/hotels/search",
@@ -37,7 +37,7 @@ export const getHotels = (destinationId, numAdults) => {
             destination_id: destinationId,
             adults_number: numAdults.toString(),
             locale: "en_US",
-            currency: "USD",
+            currency: curr,
             price_min: "10",
             star_rating_ids: "3,4,5",
             // accommodation_ids: "20,8,15,5,1",
@@ -85,10 +85,10 @@ export const getAirports = (city, country) => {
  * @param {string} outboundDate - Date of departure
  * @returns {Promise<object>} Promise resolving to response object
  */
-export const getFlights = (origin, dest, outboundDate) => {
+export const getFlights = (origin, dest, outboundDate, curr) => {
     var options = {
         method: "GET",
-        url: `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/${origin}/${dest}/${outboundDate}`,
+        url: `https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/${curr}/en-US/${origin}/${dest}/${outboundDate}`,
         // params: { inboundpartialdate: ""},
         headers: {
             "x-rapidapi-host":

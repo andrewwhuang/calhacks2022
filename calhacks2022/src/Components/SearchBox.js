@@ -29,12 +29,13 @@ const SearchBox = ({ data }) => {
     // Function for making API calls and saving to state
     const getHotelsAndFlights = useCallback(() => {
         // Get destination ID for Hotel request
-        getAreas(data.destCity)
+        getAreas(data.destCity, data.currency)
             .then((response) => {
                 // Hotel request
                 getHotels(
                     response.data.suggestions[0].entities[0].destinationId,
-                    1
+                    1,
+                    data.currency,
                 )
                     .then((response) => {
                         console.log(
@@ -72,7 +73,8 @@ const SearchBox = ({ data }) => {
                 getFlights(
                     originData.Places[0].PlaceId,
                     destData.Places[0].PlaceId,
-                    data.startDate
+                    data.startDate,
+                    data.currency,
                 )
                     .then((response) => {
                         console.log("FLIGHTS", response.data.Quotes);
@@ -139,7 +141,7 @@ const SearchBox = ({ data }) => {
             <div className="title">FLIGHTS</div>
             {flights.map((flight) => (
                 <div className="result">
-                    <div>${flight.minPrice}</div>
+                    <div>${flight.minPrice}{" " + data.currency}</div>
                     <div>{flight.direct ? "DIRECT" : "INDIRECT"}</div>
                     <div>{flight.carrier}</div>
                 </div>
@@ -155,7 +157,7 @@ const SearchBox = ({ data }) => {
                         <tr>
                             <th className="result-table-text">
                                 <div>{hotel.name}</div>
-                                <div>${hotel.price}</div>
+                                <div>${hotel.price}{" " + data.currency}</div>
                                 <ReactStars
                                     count={5}
                                     value={hotel.stars}
