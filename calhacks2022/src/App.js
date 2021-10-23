@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Map from './Components/Map';
+import PreferencesBar from './Components/PreferencesBar';
+import SearchBox from './Components/SearchBox';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      // Add preference states here
+      city: 'Berkeley'
+    };
+  }
+
+  // For data ={}, add any states needed
+  render() {
+    return (
+      <div className="App">
+        <PreferencesBar data={this.state}/>
+        <Map data={this.state}/>
+        <SearchBox data={this.state}/>
+      </div>
+    );
+  }
 }
 
 export default App;
+
