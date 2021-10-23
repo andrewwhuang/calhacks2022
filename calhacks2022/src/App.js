@@ -6,24 +6,25 @@ import SearchBox from './Components/SearchBox';
 
 class App extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      // Add preference states here
-      city: 'Berkeley'
-    };
-  }
+    constructor(props){
+        super(props);
+        this.state = {
+            // Add preference states here
+            // Berkeley is default state
+            city: 'Berkeley'
+        };
+    }
 
-  // For data ={}, add any states needed
-  render() {
-    return (
-      <div className="App">
-        <PreferencesBar data={this.state}/>
-        <Map data={this.state}/>
-        <SearchBox data={this.state}/>
-      </div>
-    );
-  }
+    // For data ={}, add any states needed
+    render() {
+        return (
+            <div className="App">
+                <PreferencesBar data={this.state}/>
+                <Map data={this.state}/>
+                <SearchBox data={this.state}/>
+            </div>
+        );
+    }
 }
 
 export default App;

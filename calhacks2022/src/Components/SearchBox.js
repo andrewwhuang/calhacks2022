@@ -1,16 +1,21 @@
 import React, { Component } from 'react';
 
 class SearchBox extends Component {
-  render() {
 
-    if(this.props.data){
-        // add any needed states
+    getNearestCity() {
+        return "apples";
     }
+    
+    render() {
 
-    return (
-      <section id="searchBox"> "sample test for SearchBox" </section>
-    );
-  }
+        if(this.props.data){
+            // add any needed states
+        }
+
+        return (
+        <section id="searchBox"> "sample test for SearchBox" + {this.getNearestCity()} </section>
+        );
+    }
 }
 
 export default SearchBox;

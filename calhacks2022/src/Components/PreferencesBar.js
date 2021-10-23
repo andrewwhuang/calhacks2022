@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 
 class PreferencesBar extends Component {
 
-  render() {
-
-    if(this.props.data){
-      var city = this.props.data.city;
+    getNearestCity() {
+        return "apples";
     }
 
-    return (
-      <header id="home"> "Sample Text" + {city} </header>
-    );
-  }
+    render() {
+
+        if(this.props.data){
+            var city = this.props.data.city;
+        }
+
+        return (
+            <header id="home"> "Sample Text" + {city} + {this.getNearestCity()} </header>
+        );
+    }
 }
 
 export default PreferencesBar;
