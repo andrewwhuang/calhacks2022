@@ -35,7 +35,7 @@ const SearchBox = ({ data }) => {
                 getHotels(
                     response.data.suggestions[0].entities[0].destinationId,
                     1,
-                    data.currency,
+                    data.currency
                 )
                     .then((response) => {
                         console.log(
@@ -74,7 +74,7 @@ const SearchBox = ({ data }) => {
                     originData.Places[0].PlaceId,
                     destData.Places[0].PlaceId,
                     data.startDate,
-                    data.currency,
+                    data.currency
                 )
                     .then((response) => {
                         console.log("FLIGHTS", response.data.Quotes);
@@ -141,7 +141,10 @@ const SearchBox = ({ data }) => {
             <div className="title">FLIGHTS</div>
             {flights.map((flight) => (
                 <div className="result">
-                    <div>${flight.minPrice}{" " + data.currency}</div>
+                    <div>
+                        ${flight.minPrice}
+                        {" " + data.currency}
+                    </div>
                     <div>{flight.direct ? "DIRECT" : "INDIRECT"}</div>
                     <div>{flight.carrier}</div>
                 </div>
@@ -157,7 +160,10 @@ const SearchBox = ({ data }) => {
                         <tr>
                             <th className="result-table-text">
                                 <div>{hotel.name}</div>
-                                <div>${hotel.price}{" " + data.currency}</div>
+                                <div>
+                                    ${hotel.price}
+                                    {" " + data.currency}
+                                </div>
                                 <ReactStars
                                     count={5}
                                     value={hotel.stars}

@@ -21,16 +21,6 @@
     line-height: 30px;
 }
 
-.searchBox {
-    position: absolute;
-    top: 105px;
-    right: 20px;
-    /* float: right; */
-    width: 500px;
-    height: calc(100vh - 120px);
-    overflow-y: scroll;
-    overflow-x: auto;
-}
 .title {
     display: flex;
     align-items: center;
@@ -38,4 +28,17 @@
     height: 50px;
     font-size: xx-large;
     font-weight: bold;
+}
+
+.searchBox {
+    padding-left: 10px;
+    padding-right: 10px;
+    /* position: absolute; */
+    /* top: 105px;
+    right: 20px; */
+    /* float: right; */
+    width: 500px;
+    height: calc(100vh - 120px);
+    overflow-y: scroll;
+    overflow-x: visible;
 }
