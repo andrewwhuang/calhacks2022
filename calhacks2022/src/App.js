@@ -84,6 +84,13 @@ class App extends Component {
             </div>
         );
     }
+
+    latLongSetter = (lat, long) => {
+        this.setState({
+            destLat: lat,
+            destLng: long,
+        });
+    };
 }
 
 export default App;
