@@ -19,6 +19,7 @@
     background-color: white !important;
 }
 
+
 .react-datepicker-wrapper,
 .react-datepicker__input-container input {
     font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
@@ -53,5 +54,6 @@
     font-size: 200%;
     text-indent: 30px;
     font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+
 }
 
