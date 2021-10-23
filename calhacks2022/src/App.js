@@ -18,10 +18,10 @@ class App extends Component {
             destCountry: "JP",
             lat: 37.871666, //will be got from the location api
             lng: -122.272781,
-            destLat: 0, //just default values that are set when a marker is dropped
-            destLng: 0,
+            destLat: 35.679308664334854, //just default values that are set when a marker is dropped
+            destLng: 139.76735851097857,
             startDate: new Date().toISOString().slice(0, 10),
-            endDate: null,
+            endDate: "2021-12-25",
             currency: "CAD",
             originCity: "Vancouver",
             originCountry: "CA",
@@ -31,9 +31,7 @@ class App extends Component {
     // For data ={}, add any states needed
     render() {
         return (
-            <div
-                className="App"
-            >
+            <div className="App">
                 <PreferencesBar
                     data={this.state}
                     startDate={this.editStart}
@@ -71,7 +69,7 @@ class App extends Component {
     };
 
     editCurrency = (value) => {
-        const newCurr = (this.state.currency === "USD") ? "CAD ": "USD";
+        const newCurr = this.state.currency === "USD" ? "CAD" : "USD";
         this.setState({
             currency: newCurr,
         });

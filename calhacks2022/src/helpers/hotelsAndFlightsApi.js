@@ -20,6 +20,37 @@ export const getAreas = (city, curr) => {
     return axios.request(options);
 };
 
+export const getHotelsByLatLong = (lat, long, startDate, endDate, curr) => {
+    var options = {
+        method: "GET",
+        url: "https://hotels-com-provider.p.rapidapi.com/v1/hotels/nearby",
+        params: {
+            latitude: lat.toString(),
+            currency: curr,
+            longitude: long.toString(),
+            checkout_date: endDate,
+            sort_order: "STAR_RATING_HIGHEST_FIRST",
+            checkin_date: startDate,
+            adults_number: "1",
+            locale: "en_US",
+            guest_rating_min: "4",
+            star_rating_ids: "3,4,5",
+            page_number: "1",
+            price_min: "10",
+            accommodation_ids: "20,8,15,5,1",
+            theme_ids: "14,27,25",
+            price_max: "500",
+            amenity_ids: "527,2063",
+        },
+        headers: {
+            "x-rapidapi-host": "hotels-com-provider.p.rapidapi.com",
+            "x-rapidapi-key":
+                "a5187c3c21msh91991b7a36881f8p1ec7d4jsnf5375894fb39",
+        },
+    };
+    return axios.request(options);
+};
+
 /**
  *
  * @param {string} destinationId

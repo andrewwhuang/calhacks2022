@@ -5,6 +5,7 @@ import {
     getAreas,
     getFlights,
     getHotels,
+    getHotelsByLatLong,
 } from "../helpers/hotelsAndFlightsApi";
 import ReactStars from "react-rating-stars-component";
 
@@ -19,7 +20,8 @@ const MAX_NUM_FLIGHT_RESULTS = 3;
  * @param {string} data.destCity
  * @param {string} data.destCountry
  * @param {string} data.startDate
- * @param {string} [data.endDate]
+ * @param {string} data.endDate
+ * @param {string} data.currency
  * @returns
  */
 const SearchBox = ({ data }) => {
@@ -29,38 +31,63 @@ const SearchBox = ({ data }) => {
     // Function for making API calls and saving to state
     const getHotelsAndFlights = useCallback(() => {
         // Get destination ID for Hotel request
-        getAreas(data.destCity, data.currency)
+        // getAreas(data.destCity, data.currency)
+        //     .then((response) => {
+        //         // Hotel request
+        //         getHotels(
+        //             response.data.suggestions[0].entities[0].destinationId,
+        //             1,
+        //             data.currency
+        //         )
+        //             .then((response) => {
+        //                 console.log(
+        //                     "HOTELS",
+        //                     response.data.searchResults.results
+        //                 );
+        //                 const newHotels = response.data.searchResults.results
+        //                     .map((hotel) => {
+        //                         return {
+        //                             name: hotel.name,
+        //                             stars: hotel.starRating,
+        //                             address: hotel.address,
+        //                             price: hotel.ratePlan.price.exactCurrent,
+        //                             imgLink:
+        //                                 hotel.optimizedThumbUrls.srpDesktop,
+        //                         };
+        //                     })
+        //                     .filter((_, i) => i < MAX_NUM_HOTEL_RESULTS);
+        //                 setHotels(newHotels);
+        //             })
+        //             .catch((error) =>
+        //                 console.error("getHotels() ERROR", error)
+        //             );
+        //     })
+        //     .catch((error) => console.error("getAreas() ERROR", error));
+        getHotelsByLatLong(
+            data.destLat,
+            data.destLng,
+            data.startDate,
+            data.endDate,
+            data.currency
+        )
             .then((response) => {
-                // Hotel request
-                getHotels(
-                    response.data.suggestions[0].entities[0].destinationId,
-                    1,
-                    data.currency
-                )
-                    .then((response) => {
-                        console.log(
-                            "HOTELS",
-                            response.data.searchResults.results
-                        );
-                        const newHotels = response.data.searchResults.results
-                            .map((hotel) => {
-                                return {
-                                    name: hotel.name,
-                                    stars: hotel.starRating,
-                                    address: hotel.address,
-                                    price: hotel.ratePlan.price.exactCurrent,
-                                    imgLink:
-                                        hotel.optimizedThumbUrls.srpDesktop,
-                                };
-                            })
-                            .filter((_, i) => i < MAX_NUM_HOTEL_RESULTS);
-                        setHotels(newHotels);
+                console.log("HOTELS", response.data.searchResults.results);
+                const newHotels = response.data.searchResults.results
+                    .map((hotel) => {
+                        return {
+                            name: hotel.name,
+                            stars: hotel.starRating,
+                            address: hotel.address,
+                            price: hotel.ratePlan.price.exactCurrent,
+                            imgLink: hotel.optimizedThumbUrls.srpDesktop,
+                        };
                     })
-                    .catch((error) =>
-                        console.error("getHotels() ERROR", error)
-                    );
+                    .filter((_, i) => i < MAX_NUM_HOTEL_RESULTS);
+                setHotels(newHotels);
             })
-            .catch((error) => console.error("getAreas() ERROR", error));
+            .catch((error) =>
+                console.error("getHotelsByLatLong() ERROR", error)
+            );
 
         // Get nearest airport
         Promise.all([
@@ -102,11 +129,15 @@ const SearchBox = ({ data }) => {
             })
             .catch((error) => console.error("getAirports() ERROR", error));
     }, [
+        data.destLat,
+        data.destLng,
         data.originCity,
         data.originCountry,
         data.destCountry,
         data.destCity,
         data.startDate,
+        data.endDate,
+        data.currency,
     ]);
 
     useEffect(() => {
@@ -134,6 +165,7 @@ const SearchBox = ({ data }) => {
         data.destCity,
         data.destCountry,
         data.startDate,
+        data.currency,
     ]);
 
     return (

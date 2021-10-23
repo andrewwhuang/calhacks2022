@@ -44,7 +44,7 @@ function Map(props) {
                                 state = currObj.long_name;
                                 break;
                             case "country":
-                                country = currObj.long_name;
+                                country = currObj.short_name;
                                 break;
                             default:
                                 break;
