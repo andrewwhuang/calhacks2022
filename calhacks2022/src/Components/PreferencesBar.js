@@ -5,15 +5,13 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default class PreferencesBar extends Component {
   state = { 
-      activeItem: 'home',
       startDate: '',
       endDate: '',
     }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
   render() {
-    const { activeItem } = this.state
+    const { } = this.state
     
     return (
         <Menu secondary>
@@ -22,8 +20,6 @@ export default class PreferencesBar extends Component {
 
             <Menu.Item
                 name='Name of Website'
-                active={activeItem === 'Name of Website'}
-                onClick={this.handleItemClick}
             />
 
             <Menu.Menu position='right'>
