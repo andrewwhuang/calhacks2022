@@ -12,20 +12,19 @@ class App extends Component {
         super(props);
         this.state = {
             // Add preference states here
-            // We might need to hard-code Berkeley - the API doesn't return a nearby airport for some reason
-            //   city: "Berkeley",
+            // Default values that are set when a marker is dropped
+            destCity: "",
+            destState: "",
+            destCountry: "",
             lat: 37.871666, //will be got from the location api
             lng: -122.272781,
             destLat: 0, //just default values that are set when a marker is dropped
             destLng: 0,
+            startDate: new Date().toISOString().slice(0, 10),
+            endDate: null,
 
-            // Data used for calling flight + hotel api's
             originCity: "Vancouver",
             originCountry: "CA",
-            city: "Tokyo",
-            country: "JP",
-            startDate: "2021-12-01",
-            endDate: null,
         };
     }
 
@@ -38,9 +37,14 @@ class App extends Component {
                     backgroundImage: `url(${background})`,
                 }}
             >
-                <PreferencesBar data={this.state} />
+                <PreferencesBar
+                    data={this.state}
+                    startDate={this.editStart}
+                    endDate={this.editEnd}
+                />
+
                 <div className="mainContainer">
-                    <Map data={this.state} />
+                    <Map data={this.state} action={this.latLongSetter} />
                     <SearchBox data={this.state} />
                 </div>
 
@@ -89,6 +93,18 @@ class App extends Component {
         this.setState({
             destLat: lat,
             destLng: long,
+        });
+    };
+
+    editStart = (date) => {
+        this.setState({
+            startDate: date,
+        });
+    };
+
+    editEnd = (date) => {
+        this.setState({
+            endDate: date,
         });
     };
 }

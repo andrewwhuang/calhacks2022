@@ -12,8 +12,8 @@ import {
  * @param {object} data
  * @param {string} data.originCity
  * @param {string} data.originCountry
- * @param {string} data.city
- * @param {string} data.country
+ * @param {string} data.destCity
+ * @param {string} data.destCountry
  * @param {string} data.startDate
  * @param {string} [data.endDate]
  * @returns
@@ -25,7 +25,7 @@ const SearchBox = ({ data }) => {
     // Function for making API calls and saving to state
     const getHotelsAndFlights = useCallback(() => {
         // Get destination ID for Hotel request
-        getAreas(data.city)
+        getAreas(data.destCity)
             .then((response) => {
                 // Hotel request
                 getHotels(
@@ -57,7 +57,7 @@ const SearchBox = ({ data }) => {
         // Get nearest airport
         Promise.all([
             getAirports(data.originCity, data.originCountry),
-            getAirports(data.city, data.country),
+            getAirports(data.destCity, data.destCountry),
         ])
             .then((responses) => {
                 const originData = responses[0].data;
@@ -87,8 +87,8 @@ const SearchBox = ({ data }) => {
     }, [
         data.originCity,
         data.originCountry,
-        data.country,
-        data.city,
+        data.destCountry,
+        data.destCity,
         data.startDate,
     ]);
 
@@ -97,15 +97,15 @@ const SearchBox = ({ data }) => {
             "shit i got called",
             data.originCity &&
                 data.originCountry &&
-                data.city &&
-                data.country &&
+                data.destCity &&
+                data.destCountry &&
                 data.startDate
         );
         if (
             data.originCity &&
             data.originCountry &&
-            data.city &&
-            data.country &&
+            data.destCity &&
+            data.destCountry &&
             data.startDate
         ) {
             getHotelsAndFlights();
@@ -114,8 +114,8 @@ const SearchBox = ({ data }) => {
         getHotelsAndFlights,
         data.originCity,
         data.originCountry,
-        data.city,
-        data.country,
+        data.destCity,
+        data.destCountry,
         data.startDate,
     ]);
 
