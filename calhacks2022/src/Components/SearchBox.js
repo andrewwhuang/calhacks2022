@@ -7,6 +7,9 @@ import {
     getHotels,
 } from "../helpers/hotelsAndFlightsApi";
 
+const MAX_NUM_HOTEL_RESULTS = 3;
+const MAX_NUM_FLIGHT_RESULTS = 3;
+
 /**
  *
  * @param {object} data
@@ -37,15 +40,16 @@ const SearchBox = ({ data }) => {
                             "HOTELS",
                             response.data.searchResults.results
                         );
-                        const newHotels =
-                            response.data.searchResults.results.map((hotel) => {
+                        const newHotels = response.data.searchResults.results
+                            .map((hotel) => {
                                 return {
                                     name: hotel.name,
                                     stars: hotel.starRating,
                                     address: hotel.address,
                                     price: hotel.ratePlan.price.exactCurrent,
                                 };
-                            });
+                            })
+                            .filter((_, i) => i < MAX_NUM_HOTEL_RESULTS);
                         setHotels(newHotels);
                     })
                     .catch((error) =>
@@ -76,7 +80,15 @@ const SearchBox = ({ data }) => {
                                     direct: flight.Direct,
                                 };
                             }
-                        );
+                        ).filter((_, i) => i < MAX_NUM_FLIGHT_RESULTS);
+                        newFlights.forEach((flight, i) => {
+                            const carrierId =
+                                response.data.Quotes[i].OutboundLeg
+                                    .CarrierIds[0];
+                            flight.carrier = response.data.Carriers.find(
+                                (carrier) => carrier.CarrierId === carrierId
+                            ).Name;
+                        });
                         setFlights(newFlights);
                     })
                     .catch((error) =>
@@ -126,6 +138,7 @@ const SearchBox = ({ data }) => {
                 <div className="result">
                     <div>{flight.minPrice}</div>
                     <div>{flight.direct ? "DIRECT" : "INDIRECT"}</div>
+                    <div>{flight.carrier}</div>
                 </div>
             ))}
             <div className="title">HOTELS</div>
