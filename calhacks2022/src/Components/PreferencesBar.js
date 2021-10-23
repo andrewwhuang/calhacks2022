@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Input, Menu, Form, Image } from 'semantic-ui-react'
+import { Input, Menu, Form } from 'semantic-ui-react'
 
 
 export default class PreferencesBar extends Component {
