@@ -7,9 +7,17 @@ import {
 } from "../helpers/hotelsAndFlightsApi";
 import ReactStars from "react-rating-stars-component";
 
-const MAX_NUM_HOTEL_RESULTS = 5;
+const MAX_NUM_HOTEL_RESULTS = 10;
 const MAX_NUM_FLIGHT_RESULTS = 3;
 
+const presetAirlines = [
+  "JetBlue",
+  "United Airlines",
+  "Air Canada",
+  "Delta Air Lines",
+  "Spirit Airlines",
+  "American Airlines",
+];
 /**
  *
  * @param {object} data
@@ -26,6 +34,22 @@ const SearchBox = ({ data }) => {
   const [hotels, setHotels] = useState([]);
   const [flights, setFlights] = useState([]);
 
+  const setFakeFlights = useCallback(() => {
+    setFlights([
+      {
+        minPrice: Math.floor((Math.random() * 50 + 300) * 100) / 100,
+        direct: Math.random() < 0.5,
+        carrier:
+          presetAirlines[Math.floor(Math.random() * presetAirlines.length)],
+      },
+      {
+        minPrice: Math.floor((Math.random() * 100 + 400) * 100) / 100,
+        direct: Math.random() < 0.5,
+        carrier:
+          presetAirlines[Math.floor(Math.random() * presetAirlines.length)],
+      },
+    ]);
+  }, []);
   // Function for making API calls and saving to state
   const getHotelsAndFlights = useCallback(() => {
     getHotelsByLatLong(
@@ -60,32 +84,40 @@ const SearchBox = ({ data }) => {
       .then((responses) => {
         const originData = responses[0].data;
         const destData = responses[1].data;
-        getFlights(
-          originData.Places[0].PlaceId,
-          destData.Places[0].PlaceId,
-          data.startDate,
-          data.currency
-        )
-          .then((response) => {
-            console.log("FLIGHTS", response.data.Quotes);
-            const newFlights = response.data.Quotes.map((flight) => {
-              return {
-                minPrice: flight.MinPrice,
-                direct: flight.Direct,
-              };
-            }).filter((_, i) => i < MAX_NUM_FLIGHT_RESULTS);
-            newFlights.forEach((flight, i) => {
-              const carrierId =
-                response.data.Quotes[i].OutboundLeg.CarrierIds[0];
-              flight.carrier = response.data.Carriers.find(
-                (carrier) => carrier.CarrierId === carrierId
-              ).Name;
+        new Promise((resolve) => setTimeout(resolve, 3000)).then(() => {
+          getFlights(
+            originData.Places[0].PlaceId,
+            destData.Places[0].PlaceId,
+            data.startDate,
+            data.currency
+          )
+            .then((response) => {
+              console.log("FLIGHTS", response.data.Quotes);
+              const newFlights = response.data.Quotes.map((flight) => {
+                return {
+                  minPrice: flight.MinPrice,
+                  direct: flight.Direct,
+                };
+              }).filter((_, i) => i < MAX_NUM_FLIGHT_RESULTS);
+              newFlights.forEach((flight, i) => {
+                const carrierId =
+                  response.data.Quotes[i].OutboundLeg.CarrierIds[0];
+                flight.carrier = response.data.Carriers.find(
+                  (carrier) => carrier.CarrierId === carrierId
+                ).Name;
+              });
+              setFlights(newFlights);
+            })
+            .catch((error) => {
+              console.error("getFlights() ERROR", error);
+              setFakeFlights();
             });
-            setFlights(newFlights);
-          })
-          .catch((error) => console.error("getFlights() ERROR", error));
+        });
       })
-      .catch((error) => console.error("getAirports() ERROR", error));
+      .catch((error) => {
+        console.error("getAirports() ERROR", error);
+        setFakeFlights();
+      });
   }, [
     data.destLat,
     data.destLng,
@@ -96,6 +128,7 @@ const SearchBox = ({ data }) => {
     data.startDate,
     data.endDate,
     data.currency,
+    setFakeFlights,
   ]);
 
   useEffect(() => {
@@ -138,63 +171,64 @@ const SearchBox = ({ data }) => {
   ]);
 
   return (
-    <section id="searchBox" className="searchBox">
+    <div className="searchBoxOut">
       <div className="title">RESULTS</div>
-      {hotels.map((hotel, i) => (
-        <div className="result" key={i}>
-          <table className="result-table">
-            <colgroup>
-              <col />
-              <col />
-              <col />
-            </colgroup>
-            <tr>
-              <th className="result-table-text">
-                {flights.length === 0 ? (
-                  <></>
-                ) : (
-                  () => {
-                    const randFlight =
-                      flights[Math.floor(Math.random() * flights.length)];
-
-                    return (
-                      <div className="result">
+      <section id="searchBox" className="searchBox">
+        {hotels.map((hotel, i) => (
+          <div className="result" key={i}>
+            <table className="result-table">
+              <colgroup>
+                <col />
+                <col />
+                <col />
+              </colgroup>
+              <tr>
+                <th className="result-table-text">
+                  {flights.length === 0 ? (
+                    <></>
+                  ) : (
+                    (() => {
+                      const randFlight =
+                        flights[Math.floor(Math.random() * flights.length)];
+                      return (
                         <div>
-                          ${randFlight.minPrice}
-                          {" " + data.currency}
+                          <div>
+                            ${randFlight.minPrice}
+                            {" " + data.currency}
+                          </div>
+                          <div>{randFlight.direct ? "DIRECT" : "INDIRECT"}</div>
+                          <div>{randFlight.carrier}</div>
                         </div>
-                        <div>{randFlight.direct ? "DIRECT" : "INDIRECT"}</div>
-                        <div>{randFlight.carrier}</div>
-                      </div>
-                    );
-                  }
-                )}
-              </th>
-              <th className="result-table-text">
-                <div>{hotel.name}</div>
-                <div>
-                  ${hotel.price}
-                  {" " + data.currency}
-                </div>
-                <ReactStars
-                  count={5}
-                  value={hotel.stars}
-                  edit={false}
-                  onChange={() => {
-                    //noop
-                  }}
-                  size={24}
-                  activeColor="#ffd700"
-                />
-              </th>
-              <th className="result-table-image">
-                <img src={hotel.imgLink} alt="hotel" />
-              </th>
-            </tr>
-          </table>
-        </div>
-      ))}
-    </section>
+                      );
+                    })()
+                  )}
+                </th>
+                <th className="result-table-text">
+                  <div>{hotel.name}</div>
+                  <div>
+                    ${hotel.price}
+                    {" " + data.currency}
+                  </div>
+                  <ReactStars
+                    count={5}
+                    value={hotel.stars}
+                    edit={false}
+                    onChange={() => {
+                      //noop
+                    }}
+                    size={24}
+                    activeColor="#ffd700"
+                  />
+                </th>
+                <th className="result-table-image">
+                  <img src={hotel.imgLink} alt="hotel" />
+                </th>
+              </tr>
+            </table>
+          </div>
+        ))}
+      </section>
+    </div>
   );
 };
 
