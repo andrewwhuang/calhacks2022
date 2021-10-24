@@ -184,14 +184,14 @@ const SearchBox = ({ data }) => {
             <tr>
               <th className="result-table-text">
                 {flights.length === 0 ? (
-                  <></>
+                  <>penis</>
                 ) : (
-                  () => {
+                  (() => {
                     const randFlight =
                       flights[Math.floor(Math.random() * flights.length)];
 
                     return (
-                      <div className="result">
+                      <div>
                         <div>
                           ${randFlight.minPrice}
                           {" " + data.currency}
@@ -200,7 +200,7 @@ const SearchBox = ({ data }) => {
                         <div>{randFlight.carrier}</div>
                       </div>
                     );
-                  }
+                  })()
                 )}
               </th>
               <th className="result-table-text">
