@@ -16,14 +16,14 @@ Our app allows users to search up hotel and flight information with just one cli
 Our application consists of an App class, which is our main parent application. Within this app, we created 3 React components (the map, the results page, and the input navbar) which each take the data from the user and passes it to the parent (App.js), utilizing React props and hooks. The data used to query the APIs are transferred this way back and forth between our three components. 
 
 #### Deployment
-We created a workflow connected to our main branch that allows our code in main to be automatically deployed to our AWS Amplify server. 
+We created a workflow connected to our main branch that allows our code in main to be automatically deployed to our website on Netlify servers. 
 
 ---
 ### Technologies Featured
 
 - ReactJS
-- AWS Amplify
 - HTML, CSS
+- Netlify
 
 #### APIs and Libraries:
 - Geocoding API
