@@ -2,9 +2,7 @@ import "../SearchBox.css";
 import { useState, useEffect, useCallback } from "react";
 import {
   getAirports,
-  getAreas,
   getFlights,
-  getHotels,
   getHotelsByLatLong,
 } from "../helpers/hotelsAndFlightsApi";
 import ReactStars from "react-rating-stars-component";
@@ -163,7 +161,7 @@ const SearchBox = ({ data }) => {
 
   return (
     <section id="searchBox" className="searchBox">
-      <div className="title">FLIGHTS</div>
+      {/* <div className="title">FLIGHTS</div>
       {flights.map((flight) => (
         <div className="result">
           <div>
@@ -173,7 +171,7 @@ const SearchBox = ({ data }) => {
           <div>{flight.direct ? "DIRECT" : "INDIRECT"}</div>
           <div>{flight.carrier}</div>
         </div>
-      ))}
+      ))} */}
       <div className="title">HOTELS</div>
       {hotels.map((hotel) => (
         <div className="result">
@@ -181,8 +179,30 @@ const SearchBox = ({ data }) => {
             <colgroup>
               <col />
               <col />
+              <col />
             </colgroup>
             <tr>
+              <th className="result-table-text">
+                {flights.length === 0 ? (
+                  <></>
+                ) : (
+                  () => {
+                    const randFlight =
+                      flights[Math.floor(Math.random() * flights.length)];
+
+                    return (
+                      <div className="result">
+                        <div>
+                          ${randFlight.minPrice}
+                          {" " + data.currency}
+                        </div>
+                        <div>{randFlight.direct ? "DIRECT" : "INDIRECT"}</div>
+                        <div>{randFlight.carrier}</div>
+                      </div>
+                    );
+                  }
+                )}
+              </th>
               <th className="result-table-text">
                 <div>{hotel.name}</div>
                 <div>
@@ -199,7 +219,6 @@ const SearchBox = ({ data }) => {
                   size={24}
                   activeColor="#ffd700"
                 />
-                {/* <div>{hotel.stars}</div> */}
               </th>
               <th className="result-table-image">
                 <img src={hotel.imgLink} alt="hotel" />
