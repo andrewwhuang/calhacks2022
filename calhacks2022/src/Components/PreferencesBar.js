@@ -27,7 +27,6 @@ export default class PreferencesBar extends Component {
 
         <Menu.Menu position="right">
           <Menu.Item>
-            <label className="labelName">Start date </label>
             <form onSubmit={this.onFormSubmit}>
               <DatePicker
                 selected={this.state.startDate}
@@ -40,12 +39,12 @@ export default class PreferencesBar extends Component {
                 name="startDate"
                 dateFormat="yyyy-MM-dd"
                 wrapperClassName="datePicker-form"
+                placeholderText="Start Date"
               />
             </form>
           </Menu.Item>
           <Menu.Item>
             <Menu.Item>
-              <label className="labelName">End date </label>
               <form onSubmit={this.onFormSubmit}>
                 <DatePicker
                   selected={this.state.endDate}
@@ -58,14 +57,14 @@ export default class PreferencesBar extends Component {
                   name="endDate"
                   dateFormat="yyyy-MM-dd"
                   wrapperClassName="datePicker-form"
+                  placeholderText="End Date"
                 />
               </form>
             </Menu.Item>
           </Menu.Item>
           <Menu.Item>
             <Form.Field>
-              <label className="labelName">Start location </label>
-              <Input placeholder="Start location" />
+              <Input placeholder="Enter City" />
             </Form.Field>
           </Menu.Item>
           <Menu.Item>
@@ -76,10 +75,7 @@ export default class PreferencesBar extends Component {
               className="Btn-BG"
             >
               <ToggleButton value="CAD">Canadian Dollar</ToggleButton>
-              <ToggleButton value="USD">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;US
-                Dollar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              </ToggleButton>
+              <ToggleButton value="USD"> {"   US Dollar   "} </ToggleButton>
             </ToggleButtonGroup>
           </Menu.Item>
         </Menu.Menu>

@@ -28,7 +28,7 @@ function Map(props) {
         for (let i = 0; i < resultObject.address_components.length; i++) {
           const currObj = resultObject.address_components[i];
           for (let j = 0; j < currObj.types.length; j++) {
-            // is short name needed instead of long name?
+            // is short name needed instead of long name
             switch (currObj.types[j]) {
               case "locality":
                 city = currObj.long_name;
