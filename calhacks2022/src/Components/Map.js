@@ -19,8 +19,6 @@ function Map(props) {
     props.data.destLat = coords.lat;
     props.data.destLng = coords.lng;
     setCenter(coords);
-    // remove later
-    console.log(coords);
     Geocode.fromLatLng(coords.lat, coords.lng).then(
       (response) => {
         let city, state, country;
@@ -28,7 +26,6 @@ function Map(props) {
         for (let i = 0; i < resultObject.address_components.length; i++) {
           const currObj = resultObject.address_components[i];
           for (let j = 0; j < currObj.types.length; j++) {
-            // is short name needed instead of long name
             switch (currObj.types[j]) {
               case "locality":
                 city = currObj.long_name;
@@ -44,7 +41,6 @@ function Map(props) {
             }
           }
         }
-        //temporary error handling
         if (!city) {
           city = "Seattle";
         }
