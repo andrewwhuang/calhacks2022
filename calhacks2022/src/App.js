@@ -38,6 +38,7 @@ class App extends Component {
           startDate={this.editStart}
           endDate={this.editEnd}
           changeCurrency={this.editCurrency}
+          editLocation={this.editLocation}
         />
         <div className="mainContainer">
           <div className="mapContainer">
@@ -56,6 +57,13 @@ class App extends Component {
       destCity: city,
       destState: state,
       destCountry: country,
+    });
+  };
+
+  editLocation = (country, state) => {
+    this.setState({
+      originCountry: country,
+      originState: state,
     });
   };
 

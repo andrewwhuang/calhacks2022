@@ -1,85 +1,114 @@
-import React, { Component } from "react";
-import { Input, Menu, Form } from "semantic-ui-react";
+import React, { useState } from "react";
+import { Menu } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import "react-datepicker/dist/react-datepicker.css";
+import Select from "react-select";
+import { Country, State } from "country-state-city";
 
-export default class PreferencesBar extends Component {
-  state = {
-    startDate: "",
-    endDate: "",
+const allCountries = Country.getAllCountries().map((country) => {
+  return {
+    label: country.name,
+    value: country.isoCode,
   };
+});
+console.log(State.getStatesOfCountry("CA"));
 
-  render() {
-    // const {} = this.state;
+export default function PreferencesBar(props) {
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [states, setStates] = useState([]);
+  const [stateName, setStateName] = useState("");
 
-    const handleChange = () => {
-      this.props.changeCurrency();
-    };
+  return (
+    <Menu secondary>
+      {/* <Image src="static/img/frontpage-logo.jpg" class="center-logo"> */}
 
-    return (
-      <Menu secondary>
-        {/* <Image src="static/img/frontpage-logo.jpg" class="center-logo"> */}
+      <Menu.Item>
+        <label className="labelNameTitle"> Click 2 Trip </label>
+      </Menu.Item>
 
+      <Menu.Menu position="right">
         <Menu.Item>
-          <label className="labelNameTitle"> Click 2 Trip </label>
+          <form
+            onSubmit={() => {
+              // noop
+            }}
+          >
+            <DatePicker
+              selected={startDate}
+              onChange={(startVal) => {
+                setStartDate(startVal);
+                props.startDate(startVal.toISOString().substring(0, 10));
+              }}
+              name="startDate"
+              dateFormat="yyyy-MM-dd"
+              wrapperClassName="datePicker-form"
+              placeholderText="Start Date"
+            />
+          </form>
         </Menu.Item>
-
-        <Menu.Menu position="right">
+        <Menu.Item>
           <Menu.Item>
-            <form onSubmit={this.onFormSubmit}>
+            <form
+              onSubmit={() => {
+                //noop
+              }}
+            >
               <DatePicker
-                selected={this.state.startDate}
-                onChange={(startVal) => {
-                  this.props.startDate(startVal);
-                  this.setState({
-                    startDate: startVal,
-                  });
+                selected={endDate}
+                onChange={(endVal) => {
+                  setEndDate(endVal);
+                  props.endDate(endVal.toISOString().substring(0, 10));
                 }}
-                name="startDate"
+                name="endDate"
                 dateFormat="yyyy-MM-dd"
                 wrapperClassName="datePicker-form"
-                placeholderText="Start Date"
+                placeholderText="End Date"
               />
             </form>
           </Menu.Item>
-          <Menu.Item>
-            <Menu.Item>
-              <form onSubmit={this.onFormSubmit}>
-                <DatePicker
-                  selected={this.state.endDate}
-                  onChange={(endVal) => {
-                    this.props.endDate(endVal);
-                    this.setState({
-                      endDate: endVal,
-                    });
-                  }}
-                  name="endDate"
-                  dateFormat="yyyy-MM-dd"
-                  wrapperClassName="datePicker-form"
-                  placeholderText="End Date"
-                />
-              </form>
-            </Menu.Item>
-          </Menu.Item>
-          <Menu.Item>
-            <Form.Field>
-              <Input placeholder="Enter City" />
-            </Form.Field>
-          </Menu.Item>
-          <Menu.Item>
-            <ToggleButtonGroup
-              color="primary"
-              exclusive
-              onChange={handleChange}
-              className="Btn-BG"
-            >
-              <ToggleButton value="CAD">Canadian Dollar</ToggleButton>
-              <ToggleButton value="USD"> {"   US Dollar   "} </ToggleButton>
-            </ToggleButtonGroup>
-          </Menu.Item>
-        </Menu.Menu>
-      </Menu>
-    );
-  }
+        </Menu.Item>
+        <Menu.Item>
+          <Select
+            options={allCountries}
+            placeholder="Country"
+            onChange={(country) => {
+              props.editLocation(country.value, "");
+              setStates(
+                State.getStatesOfCountry(country.value).map((state) => {
+                  return {
+                    value: state.isoCode,
+                    label: state.name,
+                  };
+                })
+              );
+              setStateName("");
+            }}
+          />
+          <Select
+            options={states}
+            placeholder="States"
+            value={stateName}
+            onChange={(state) => {
+              console.log(state);
+              setStateName(state.name);
+              props.editLocation(props.data.originCountry, state.label);
+            }}
+          />
+        </Menu.Item>
+        <Menu.Item>
+          <ToggleButtonGroup
+            color="primary"
+            exclusive
+            onChange={props.changeCurrency}
+            className="Btn-BG"
+          >
+            <ToggleButton value="CAD">Canadian Dollar</ToggleButton>
+            <ToggleButton value="USD"> {"   US Dollar   "} </ToggleButton>
+          </ToggleButtonGroup>
+        </Menu.Item>
+      </Menu.Menu>
+    </Menu>
+  );
 }
