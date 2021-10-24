@@ -1,4 +1,4 @@
-# calhacks2022
+# click2trip
 
 Our app allows users to search up hotel and flight information with just one click on the map!
 
@@ -6,7 +6,7 @@ Our app allows users to search up hotel and flight information with just one cli
 
 ### Main Features
 
-#### Map Implementation and Instantaeous Results
+#### Map Implementation and Instantaneous Results
 - A scalable map with interactive zoom and move functionalities is available for the user to find the exact destination for their vacation. Clicking on the map will instantaneously display flight and hotel options.
 - Wherever the user clicks on the map, an API is used to find the nearest airport for that location and then return the possible available flights 
 - The results shown automatically account for the current availabilities of the flights and hotel bookings. For example, if a hotel is fully booked during the period of your stay, the hotel will not show up as a result. 
