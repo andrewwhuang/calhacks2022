@@ -28,39 +28,6 @@ const SearchBox = ({ data }) => {
 
   // Function for making API calls and saving to state
   const getHotelsAndFlights = useCallback(() => {
-    // Get destination ID for Hotel request
-    // getAreas(data.destState, data.currency)
-    //     .then((response) => {
-    //         // Hotel request
-    //         getHotels(
-    //             response.data.suggestions[0].entities[0].destinationId,
-    //             1,
-    //             data.currency
-    //         )
-    //             .then((response) => {
-    //                 console.log(
-    //                     "HOTELS",
-    //                     response.data.searchResults.results
-    //                 );
-    //                 const newHotels = response.data.searchResults.results
-    //                     .map((hotel) => {
-    //                         return {
-    //                             name: hotel.name,
-    //                             stars: hotel.starRating,
-    //                             address: hotel.address,
-    //                             price: hotel.ratePlan.price.exactCurrent,
-    //                             imgLink:
-    //                                 hotel.optimizedThumbUrls.srpDesktop,
-    //                         };
-    //                     })
-    //                     .filter((_, i) => i < MAX_NUM_HOTEL_RESULTS);
-    //                 setHotels(newHotels);
-    //             })
-    //             .catch((error) =>
-    //                 console.error("getHotels() ERROR", error)
-    //             );
-    //     })
-    //     .catch((error) => console.error("getAreas() ERROR", error));
     getHotelsByLatLong(
       data.destLat,
       data.destLng,
@@ -132,21 +99,31 @@ const SearchBox = ({ data }) => {
   ]);
 
   useEffect(() => {
+    const doReload =
+      data.originState &&
+      data.originState !== "" &&
+      data.originCountry &&
+      data.originCountry !== "" &&
+      data.destState &&
+      data.destState !== "" &&
+      data.destCountry &&
+      data.destCountry !== "" &&
+      data.startDate &&
+      data.startDate !== "" &&
+      data.endDate &&
+      data.endDate !== "";
     console.log(
       "shit i got called",
-      data.originState &&
-        data.originCountry &&
-        data.destState &&
-        data.destCountry &&
-        data.startDate
+      data.originState,
+      data.originCountry,
+      data.destState,
+      data.destCountry,
+      data.startDate,
+      data.endDate,
+      "RELOAD?",
+      doReload
     );
-    if (
-      data.originState &&
-      data.originCountry &&
-      data.destState &&
-      data.destCountry &&
-      data.startDate
-    ) {
+    if (doReload) {
       getHotelsAndFlights();
     }
   }, [
@@ -156,25 +133,15 @@ const SearchBox = ({ data }) => {
     data.destState,
     data.destCountry,
     data.startDate,
+    data.endDate,
     data.currency,
   ]);
 
   return (
     <section id="searchBox" className="searchBox">
-      {/* <div className="title">FLIGHTS</div>
-      {flights.map((flight) => (
-        <div className="result">
-          <div>
-            ${flight.minPrice}
-            {" " + data.currency}
-          </div>
-          <div>{flight.direct ? "DIRECT" : "INDIRECT"}</div>
-          <div>{flight.carrier}</div>
-        </div>
-      ))} */}
-      <div className="title">HOTELS</div>
-      {hotels.map((hotel) => (
-        <div className="result">
+      <div className="title">RESULTS</div>
+      {hotels.map((hotel, i) => (
+        <div className="result" key={i}>
           <table className="result-table">
             <colgroup>
               <col />
