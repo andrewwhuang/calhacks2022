@@ -18,6 +18,9 @@ Our application consists of an App class, which is our main parent application. 
 #### Deployment
 We created a workflow connected to our main branch that allows our code in main to be automatically deployed to our website on AWS amplify server. 
 
+#### Note
+The API used is currently out of calls.
+
 ---
 ### Technologies Featured
 
